@@ -1,52 +1,46 @@
-# GraphQL Job Board Project
+# GraphQL by Example – Study Projects
 
-This repository contains a GraphQL-based job board application, structured for learning and demonstration purposes. It is inspired by the [GraphQL by Example](https://www.udemy.com/course/graphql-by-example/?referralCode=7ACEB04674F000BAC061) course.
+This repository contains two projects to help you learn GraphQL by example:
 
-## Project Structure
+## 1. Starter Project (`starter/`)
+- **Goal:** Show that running GraphQL doesn't require a fancy backend or frontend.
+- **Backend:** Minimal Express.js server with GraphQL.
+- **Frontend:** Simple HTML file (no frameworks or libraries needed).
+- **Use case:** Great for understanding the basics of GraphQL queries and mutations without extra complexity.
 
-### Main Application (`job-board/`)
+## 2. Job Board Project (`job-board/`)
+- **Goal:** Demonstrate a more structured, modern GraphQL application.
+- **Backend:** Express.js server with GraphQL integrated as middleware, includes authentication and database.
+- **Frontend:** React-based UI using Apollo Client for GraphQL.
+- **Use case:** Learn how GraphQL fits into real-world, full-stack JavaScript apps.
 
-#### Client
-- Modern JavaScript frontend using Vite
-- Located in `job-board/client/`
-- Uses Apollo Client for GraphQL integration
-
-#### Server
-- GraphQL server using Apollo Server with Express
-- Located in `job-board/server/`
-- Features:
-  - Authentication system
-  - GraphQL schema definitions
-  - Custom resolvers
-  - Database integration
-
-### Starter Code (`starter/`)
-- Basic implementation templates
-- Includes both client and server setups
-- Perfect for learning and development reference
-
-## Technologies Used
-
-- **Frontend**:
-  - Vite (Build tool)
-  - Apollo Client
-  - Modern JavaScript
-
-- **Backend**:
-  - Node.js
-  - Apollo Server
-  - Express
-  - GraphQL
+---
 
 ## Getting Started
 
-### Prerequisites
-- Node.js (v14 or higher recommended)
-- npm or yarn
+1. **Starter Project**
+   - Run the server:
+     ```bash
+     cd starter/server
+     npm install
+     npm start
+     ```
+   - Open `starter/client/index.html` in your browser.
 
-### Installation
+2. **Job Board Project**
+   - Start the backend:
+     ```bash
+     cd job-board/server
+     npm install
+     npm start
+     ```
+   - Start the frontend:
+     ```bash
+     cd ../client
+     npm install
+     npm run dev
+     ```
 
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url>
-   cd graphql
+---
+
+Choose the project that matches your learning goals: start simple, then move to a real-world example!
