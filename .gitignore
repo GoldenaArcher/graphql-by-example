@@ -1,0 +1,7 @@
+# ignore files for node projects
+**/node_modules
+npm-debug.log
+
+# mac related files
+.DS_Store
+Thumbs.db
