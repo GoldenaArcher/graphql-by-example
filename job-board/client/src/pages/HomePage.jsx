@@ -6,9 +6,15 @@ function HomePage() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    getJobs().then((data) => {
-      setJobs(data);
-    });
+    getJobs()
+      .then((data) => {
+        console.log(data);
+
+        setJobs(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
