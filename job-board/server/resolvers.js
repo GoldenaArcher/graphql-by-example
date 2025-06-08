@@ -29,15 +29,42 @@ export const resolvers = {
   },
 
   Mutation: {
-    createJob: (_root, { input: { title, description } }) => {
-      const companyId = "FjcJCHJALA4i"; // TODO - change it later
+    createJob: (_root, { input: { title, description } }, context) => {
+      if (!context.user) {
+        throw new GraphQLUnauthorized("Unauthorized");
+      }
+      
+      const companyId = context.user.companyId; // TODO - change it later
       return createJob({ companyId, title, description });
     },
-    deleteJob: (_root, { id }) => {
-      deleteJob(id);
+    deleteJob: async (_root, { id }, {user}) => {
+      if (!user) {
+        throw new GraphQLUnauthorized("Unauthorized");
+      }
+
+      const job = await deleteJob(id, user.companyId);
+
+      if (!job) {
+        throw new GraphQLNotFound("Job not found: " + id);
+      }
+
+      return job;
     },
-    updateJob: async (_root, { input: { id, title, description } }) => {
-      await updateJob({ id, title, description });
+    updateJob: async (
+      _root,
+      { input: { id, title, description } },
+      { user }
+    ) => {
+      if (!user) {
+        throw new GraphQLUnauthorized("Unauthorized");
+      }
+      const job = await updateJob({ id, title, description, companyId: user.companyId  });
+
+      if (!job) {
+        throw new GraphQLNotFound("Job not found: " + id);
+      }
+
+      return job;
     },
   },
 
@@ -56,6 +83,19 @@ export const resolvers = {
     },
   },
 };
+
+class GraphQLUnauthorized extends GraphQLError {
+  constructor(message) {
+    super(message, {
+      extensions: {
+        code: "UNAUTHORIZED",
+        http: {
+          status: 401,
+        },
+      },
+    });
+  }
+}
 
 class GraphQLNotFound extends GraphQLError {
   constructor(message) {

@@ -1,6 +1,5 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { log } from "console";
 
 const typeDefs = `#graphql
     # schema
