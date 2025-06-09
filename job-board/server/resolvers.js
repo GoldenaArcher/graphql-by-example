@@ -72,8 +72,8 @@ export const resolvers = {
     date: (parent) => {
       return toIsoDate(parent.createdAt);
     },
-    company: (job) => {
-      return getCompany(job.companyId);
+    company: (job, _args, { companyLoader }) => {
+      return companyLoader.load(job.companyId);
     },
   },
 
