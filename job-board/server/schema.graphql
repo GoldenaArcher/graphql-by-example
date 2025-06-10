@@ -1,7 +1,12 @@
 type Query {
     job(id: ID!): Job
-    jobs: [Job]
+    jobs(limit: Int, offset: Int): PaginatedList
     company(id: ID!): Company
+}
+
+type PaginatedList {
+    totalCount: Int!
+    items: [Job]
 }
 
 type Mutation {
@@ -14,7 +19,7 @@ type Company {
     id: ID!
     name: String!
     description: String
-    jobs: [Job!]
+    jobs(limit: Int, offset: Int): [Job!]
 }
 
 """

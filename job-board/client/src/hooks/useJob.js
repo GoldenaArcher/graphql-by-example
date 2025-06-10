@@ -17,8 +17,11 @@ export const useFetchJob = (jobId) => {
   };
 };
 
-export const useFetchJobs = () => {
-  const { data, loading, error } = useQuery(jobsQuery);
+export const useFetchJobs = (limit, offset) => {
+  const { data, loading, error } = useQuery(jobsQuery, {
+    variables: { limit, offset },
+  });
+
   return {
     jobs: data?.jobs,
     loading,
@@ -52,5 +55,5 @@ export const useCreateJob = () => {
     return job;
   };
 
-  return [createJob, options]
+  return [createJob, options];
 };

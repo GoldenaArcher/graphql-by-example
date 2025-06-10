@@ -1,14 +1,26 @@
-import { connection } from './connection.js';
-import { generateId } from './ids.js';
+import { connection } from "./connection.js";
+import { generateId } from "./ids.js";
 
-const getJobTable = () => connection.table('job');
+const getJobTable = () => connection.table("job");
 
-export async function getJobs() {
-  return await getJobTable().select();
+export const countJobs = async () => {
+  const { count } = await getJobTable().first().count("* as count");
+  return count;
+};
+
+export async function getJobs(limit, offset) {
+  const query = getJobTable().select().orderBy("createdAt", "desc");
+  if (limit) {
+    query.limit(limit);
+  }
+  if (offset) {
+    query.offset(offset);
+  }
+  return await query;
 }
 
 export async function getJobsByCompany(companyId) {
-  return await getJobTable().select().where({companyId})
+  return await getJobTable().select().where({ companyId });
 }
 
 export async function getJob(id) {
@@ -37,7 +49,7 @@ export async function deleteJob(id, companyId) {
 }
 
 export async function updateJob({ id, title, description, companyId }) {
-  const job = await getJobTable().first().where({ id , companyId});
+  const job = await getJobTable().first().where({ id, companyId });
   if (!job) {
     throw new Error(`Job not found: ${id}`);
   }

@@ -6,6 +6,7 @@ import {
   createJob,
   deleteJob,
   updateJob,
+  countJobs,
 } from "./db/jobs.js";
 import { getCompany } from "./db/companies.js";
 
@@ -18,7 +19,13 @@ export const resolvers = {
       }
       return job;
     },
-    jobs: async () => getJobs(),
+    jobs: async (_root, { limit, offset }) => {
+      const [items, totalCount] = await Promise.all([
+        getJobs(limit, offset),
+        countJobs(),
+      ]);
+      return { items, totalCount };
+    },
     company: async (_root, { id }) => {
       const company = await getCompany(id);
       if (!company) {
@@ -33,11 +40,11 @@ export const resolvers = {
       if (!context.user) {
         throw new GraphQLUnauthorized("Unauthorized");
       }
-      
+
       const companyId = context.user.companyId; // TODO - change it later
       return createJob({ companyId, title, description });
     },
-    deleteJob: async (_root, { id }, {user}) => {
+    deleteJob: async (_root, { id }, { user }) => {
       if (!user) {
         throw new GraphQLUnauthorized("Unauthorized");
       }
@@ -58,7 +65,12 @@ export const resolvers = {
       if (!user) {
         throw new GraphQLUnauthorized("Unauthorized");
       }
-      const job = await updateJob({ id, title, description, companyId: user.companyId  });
+      const job = await updateJob({
+        id,
+        title,
+        description,
+        companyId: user.companyId,
+      });
 
       if (!job) {
         throw new GraphQLNotFound("Job not found: " + id);
@@ -78,7 +90,7 @@ export const resolvers = {
   },
 
   Company: {
-    jobs: (parent) => {
+    jobs: (parent, { limit }) => {
       return getJobsByCompany(parent.id);
     },
   },
