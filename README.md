@@ -1,6 +1,6 @@
 # GraphQL by Example – Study Projects
 
-This repository contains two projects to help you learn GraphQL by example:
+This repository contains multiple projects to help you learn GraphQL by example:
 
 ## 1. Starter Project (`starter/`)
 - **Goal:** Show that running GraphQL doesn't require a fancy backend or frontend.
@@ -13,6 +13,12 @@ This repository contains two projects to help you learn GraphQL by example:
 - **Backend:** Express.js server with GraphQL integrated as middleware, includes authentication and database.
 - **Frontend:** React-based UI using Apollo Client for GraphQL.
 - **Use case:** Learn how GraphQL fits into real-world, full-stack JavaScript apps.
+
+## 3. Chat Project (`chat/`)
+- **Goal:** Explore GraphQL in the context of a chat application.
+- **Backend:** Express.js server with GraphQL (see `chat/server/`).
+- **Frontend:** Modern JavaScript frontend (see `chat/client/`).
+- **Use case:** Study real-time or message-based features with GraphQL.
 
 ---
 
@@ -41,6 +47,20 @@ This repository contains two projects to help you learn GraphQL by example:
      npm run dev
      ```
 
+3. **Chat Project**
+   - Start the backend:
+     ```bash
+     cd chat/server
+     npm install
+     npm start
+     ```
+   - Start the frontend:
+     ```bash
+     cd ../client
+     npm install
+     npm run dev
+     ```
+
 ---
 
-Choose the project that matches your learning goals: start simple, then move to a real-world example!
+Choose the project that matches your learning goals: start simple, then move to more advanced examples!
