@@ -1,0 +1,7 @@
+/build/
+/node_modules/
+
+# generated files
+/src/generated/
+/src/generated/**/*.ts
+/src/generated/**/*.tsx
